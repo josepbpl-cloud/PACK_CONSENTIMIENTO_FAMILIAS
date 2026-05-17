@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack Consentimiento — E-TherapyKids</title>
+<style>
+:root{--azul:#1a3a5c;--azulm:#2d6a9f;--azulc:#e8f2fb;--verde:#2e7d32;--verdec:#e8f5e9;--rojo:#c62828;--rojoc:#fff3e0;--gris:#f5f6f8;--borde:#d0dbe8;--texto:#1a1a2e;--suave:#5a6a7a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f0f4f8;color:var(--texto);font-size:16px;line-height:1.6;}
+.cab{background:var(--azul);color:#fff;padding:24px 20px;text-align:center;}
+.cab .sub{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:8px;}
+.cab h1{font-size:clamp(18px,5vw,26px);font-weight:700;margin-bottom:6px;}
+.cab p{font-size:13px;opacity:.75;}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--borde);}
+.igrid>div{background:#fff;padding:14px 16px;}
+.igrid .et{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--azulm);margin-bottom:3px;}
+.igrid p{font-size:13px;color:var(--suave);}
+.wrap{max-width:680px;margin:0 auto;padding-bottom:90px;}
+.parte{background:var(--azul);color:#fff;padding:12px 20px;font-size:14px;font-weight:700;margin-top:20px;}
+.sec{background:#fff;border-bottom:1px solid var(--borde);}
+.sec-head{padding:18px 20px 0;}
+.num{display:inline-block;background:var(--azul);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;margin-bottom:6px;}
+.sec h2{font-size:16px;font-weight:700;color:var(--azul);margin-bottom:8px;}
+.sec-body{padding:10px 20px 22px;}
+table.info{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0;}
+table.info th{background:var(--azul);color:#fff;padding:8px 10px;text-align:left;}
+table.info td{padding:8px 10px;border:1px solid var(--borde);}
+table.info tr:nth-child(even) td{background:var(--gris);}
+table.info tr:nth-child(odd) td:first-child{background:var(--azulc);font-weight:600;}
+ul.l{list-style:none;margin:6px 0;}
+ul.l li{padding:5px 0 5px 18px;position:relative;font-size:14px;color:var(--suave);border-bottom:1px solid var(--gris);}
+ul.l li::before{content:"–";position:absolute;left:0;color:var(--azulm);font-weight:700;}
+ul.l li:last-child{border:none;}
+.campo{margin:12px 0;}
+.campo label{display:block;font-size:12px;font-weight:700;color:var(--azul);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+.campo input[type=text],.campo input[type=date],.campo textarea{width:100%;border:1.5px solid var(--borde);border-radius:8px;padding:11px 13px;font-size:15px;font-family:inherit;color:var(--texto);background:#fff;-webkit-appearance:none;}
+.campo textarea{resize:vertical;min-height:60px;}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.col2{grid-template-columns:1fr;}}
+.tutor{background:var(--gris);border-radius:10px;padding:14px;margin:10px 0;}
+.tutor h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--azul);margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--azulc);}
+
+/* ── AUTORIZACIONES — CSS puro con radio ── */
+.aut{border:1.5px solid var(--borde);border-radius:12px;margin:14px 0;overflow:hidden;}
+.aut-tit{background:var(--azulc);padding:12px 14px;font-weight:700;font-size:14px;color:var(--azul);border-bottom:1px solid var(--borde);}
+.aut-tit span{display:inline-block;background:var(--azul);color:#fff;font-size:11px;padding:1px 7px;border-radius:3px;margin-right:7px;}
+.aut input[type=radio]{position:absolute;opacity:0;width:1px;height:1px;}
+.aut-opts{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--borde);}
+.aut-opts label{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 10px;cursor:pointer;font-size:15px;font-weight:700;background:#fff;transition:background .2s;-webkit-tap-highlight-color:transparent;user-select:none;}
+.aut-opts label:first-of-type{border-right:1px solid var(--borde);color:var(--verde);}
+.aut-opts label:last-of-type{color:var(--rojo);}
+.aut-opts .ico{width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+/* Activación por CSS */
+.aut input[type=radio]:first-of-type:checked ~ .aut-opts label:first-of-type{background:var(--verdec);}
+.aut input[type=radio]:first-of-type:checked ~ .aut-opts label:first-of-type .ico{background:var(--verde);border-color:var(--verde);color:#fff;}
+.aut input[type=radio]:last-of-type:checked ~ .aut-opts label:last-of-type{background:var(--rojoc);}
+.aut input[type=radio]:last-of-type:checked ~ .aut-opts label:last-of-type .ico{background:var(--rojo);border-color:var(--rojo);color:#fff;}
+.aut-extra{padding:12px 14px;}
+
+/* ── CHECKBOXES SOPORTES ── */
+.sop{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.sop input[type=checkbox]{position:absolute;opacity:0;width:1px;height:1px;}
+.sop label{display:flex;align-items:center;gap:10px;background:var(--gris);border:1.5px solid var(--borde);border-radius:8px;padding:10px 13px;cursor:pointer;font-size:14px;-webkit-tap-highlight-color:transparent;user-select:none;transition:all .2s;}
+.sop input[type=checkbox]:checked + label{background:var(--azulc);border-color:var(--azulm);color:var(--azul);font-weight:700;}
+.sop .caja{width:20px;height:20px;border:2px solid var(--borde);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;background:#fff;}
+.sop input[type=checkbox]:checked + label .caja{background:var(--azulm);border-color:var(--azulm);color:#fff;}
+
+/* ── DECLARACIONES SÍ/NO ── */
+.dec{border:1.5px solid var(--borde);border-radius:10px;margin:10px 0;overflow:hidden;}
+.dec-preg{padding:13px 14px;font-size:14px;border-bottom:1px solid var(--borde);}
+.dec input[type=radio]{position:absolute;opacity:0;width:1px;height:1px;}
+.dec-opts{display:grid;grid-template-columns:1fr 1fr;}
+.dec-opts label{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;cursor:pointer;font-size:14px;font-weight:700;background:#fff;-webkit-tap-highlight-color:transparent;user-select:none;transition:background .2s;}
+.dec-opts label:first-of-type{border-right:1px solid var(--borde);color:var(--verde);}
+.dec-opts label:last-of-type{color:var(--rojo);}
+.dec input[type=radio]:first-of-type:checked ~ .dec-opts label:first-of-type{background:var(--verdec);}
+.dec input[type=radio]:last-of-type:checked ~ .dec-opts label:last-of-type{background:var(--rojoc);}
+
+/* ── FIRMA ── */
+.firma{border:1.5px solid var(--borde);border-radius:12px;margin:14px 0;overflow:hidden;}
+.firma-head{background:var(--azulc);padding:11px 14px;font-size:14px;font-weight:700;color:var(--azul);border-bottom:1px solid var(--borde);}
+
+.fpanel{padding:13px;}
+canvas.fc{width:100%;height:130px;border:1.5px dashed var(--borde);border-radius:8px;display:block;touch-action:none;background:#fafbfc;}
+svg.fc{width:100%;height:130px;border:1.5px dashed var(--borde);border-radius:8px;display:block;touch-action:none;background:#fafbfc;cursor:crosshair;}
+.firma-hint{font-size:12px;color:var(--suave);margin-top:6px;text-align:center;}
+.btn-borrar{background:none;border:1px solid var(--borde);border-radius:6px;padding:4px 11px;font-size:12px;cursor:pointer;font-family:inherit;color:var(--suave);}
+.foto-area{border:2px dashed var(--borde);border-radius:10px;padding:22px 14px;text-align:center;background:#fafbfc;position:relative;}
+.foto-area input[type=file]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;}
+.foto-area .ficon{font-size:32px;margin-bottom:6px;}
+.foto-area p{font-size:14px;color:var(--suave);}
+.foto-area .fhint{font-size:12px;color:var(--azulm);margin-top:3px;font-weight:600;}
+.foto-prev{display:none;text-align:center;margin-top:10px;}
+.foto-prev img{max-width:100%;max-height:140px;border-radius:8px;border:1.5px solid var(--borde);}
+.btn-qfoto{background:none;border:1px solid var(--borde);border-radius:6px;padding:4px 12px;font-size:12px;color:var(--rojo);cursor:pointer;font-family:inherit;margin-top:7px;}
+
+/* ── LEGAL ── */
+.legal{font-size:13px;color:var(--suave);background:var(--gris);border-radius:8px;padding:13px 15px;font-style:italic;margin:14px 0;line-height:1.6;}
+
+/* ── BARRA FIJA ── */
+.barra{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--borde);padding:12px 18px;z-index:100;box-shadow:0 -3px 16px rgba(0,0,0,.08);}
+.btn-env{width:100%;background:var(--azul);color:#fff;border:none;border-radius:12px;padding:15px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;display:block;}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:flex-end;justify-content:center;}
+.overlay.vis{display:flex;}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:26px 22px 44px;width:100%;max-width:480px;}
+.mdrag{width:38px;height:4px;background:var(--borde);border-radius:2px;margin:0 auto 18px;}
+.mok{width:60px;height:60px;background:var(--verdec);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;}
+.modal h3{font-size:19px;font-weight:700;color:var(--azul);margin-bottom:7px;text-align:center;}
+.modal p{font-size:14px;color:var(--suave);margin-bottom:18px;text-align:center;}
+.mbtns{display:flex;flex-direction:column;gap:9px;}
+.mbtn{width:100%;border:none;border-radius:11px;padding:15px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.mb-pdf{background:var(--azul);color:#fff;}
+.mb-share{background:var(--azulc);color:var(--azul);border:1.5px solid var(--borde)!important;}
+.mb-email{background:var(--verdec);color:var(--verde);}
+.mb-close{background:var(--gris);color:var(--suave);}
+.eform{display:none;margin-top:12px;}
+.eform.vis{display:block;}
+.eform input{width:100%;border:1.5px solid var(--borde);border-radius:8px;padding:11px 13px;font-size:15px;font-family:inherit;margin-bottom:9px;-webkit-appearance:none;}
+.mb-send{width:100%;background:var(--azulm);color:#fff;border:none;border-radius:10px;padding:13px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
+@media print{.barra,.overlay{display:none!important;} canvas.fc{display:none!important;} .firma-img{display:block!important;} svg.fc polyline{stroke:#1a3a5c;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}}
+</style>
+</head>
+<body>
+
+<div class="cab">
+  <div class="sub">E-TherapyKids Institute S.L.</div>
+  <h1>Pack Unificado para Familias</h1>
+  <p>Protección de datos · Autorizaciones · Compromisos · Firma</p>
+</div>
+<div class="igrid">
+  <div><div class="et">Cómo rellenar</div><p>Desde móvil, tablet u ordenador.</p></div>
+  <div><div class="et">Cómo devolver</div><p>PDF por WhatsApp o email desde el botón final.</p></div>
+  <div><div class="et">Autorizaciones</div><p>Toca AUTORIZO o NO AUTORIZO para marcar.</p></div>
+  <div><div class="et">Firma</div><p>Con el dedo en pantalla o foto de firma.</p></div>
+</div>
+
+<div class="wrap">
+<div class="parte">PARTE I — Protección de datos y autorizaciones específicas</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">1</span><h2>Responsable del tratamiento</h2></div>
+  <div class="sec-body">
+    <table class="info">
+      <tr><td>Responsable</td><td>E-TherapyKids Institute S.L.</td></tr>
+      <tr><td>CIF</td><td>B09819624</td></tr>
+      <tr><td>Domicilio</td><td>Calle Clos de Sant Francesc 5, 08034 Barcelona</td></tr>
+      <tr><td>Contacto</td><td>info@e-therapykids.com</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">2</span><h2>Finalidades y bases jurídicas</h2></div>
+  <div class="sec-body">
+    <table class="info">
+      <tr><th>Finalidad</th><th>Base jurídica</th></tr>
+      <tr><td>Valoración, intervención y seguimiento</td><td>Art. 6.1.b), 6.1.c) y 9.2.h) RGPD</td></tr>
+      <tr><td>Agenda, contacto y atención administrativa</td><td>Art. 6.1.b) y 6.1.f) RGPD</td></tr>
+      <tr><td>Facturación y cumplimiento fiscal</td><td>Art. 6.1.b) y 6.1.c) RGPD</td></tr>
+      <tr><td>Reclamaciones y defensa jurídica</td><td>Art. 6.1.f) y 9.2.f) RGPD</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">3</span><h2>Conservación, destinatarios y derechos</h2></div>
+  <div class="sec-body">
+    <ul class="l">
+      <li>Documentación conservada durante los plazos exigidos por normativa sanitaria y de protección de datos.</li>
+      <li>Datos comunicados a administraciones o asesores solo cuando exista obligación legal.</li>
+      <li>No se comunicarán datos clínicos a escuelas o profesionales externos sin autorización expresa.</li>
+      <li>La familia puede ejercer derechos de acceso, rectificación, supresión y portabilidad ante la AEPD.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">4</span><h2>Autorizaciones opcionales</h2></div>
+  <div class="sec-body">
+    <p style="font-size:14px;color:var(--suave);margin-bottom:14px;">Voluntarias y revocables. La negativa no afecta a la asistencia principal.</p>
+
+    <!-- 4.1 -->
+    <div class="aut">
+      <div class="aut-tit"><span>4.1</span>Coordinación con escuela o profesionales externos</div>
+      <input type="radio" name="a1" id="a1s"><input type="radio" name="a1" id="a1n">
+      <div class="aut-opts">
+        <label for="a1s"><span class="ico">✓</span>AUTORIZO</label>
+        <label for="a1n"><span class="ico">✕</span>NO AUTORIZO</label>
+      </div>
+      <div class="aut-extra">
+        <div class="campo"><label>Centro educativo / profesionales autorizados</label><input type="text" placeholder="Nombre del centro o profesional"></div>
+        <div class="campo"><label>Alcance o limitaciones</label><textarea placeholder="Especifique si lo desea..." rows="2"></textarea></div>
+      </div>
+    </div>
+
+    <!-- 4.2 -->
+    <div class="aut">
+      <div class="aut-tit"><span>4.2</span>Comunicaciones por WhatsApp u otras apps de mensajería</div>
+      <input type="radio" name="a2" id="a2s"><input type="radio" name="a2" id="a2n">
+      <div class="aut-opts">
+        <label for="a2s"><span class="ico">✓</span>AUTORIZO</label>
+        <label for="a2n"><span class="ico">✕</span>NO AUTORIZO</label>
+      </div>
+      <div class="aut-extra">
+        <div class="campo"><label>Teléfono autorizado para mensajería</label><input type="text" placeholder="+34 6XX XXX XXX"></div>
+      </div>
+    </div>
+
+    <!-- 4.3 -->
+    <div class="aut">
+      <div class="aut-tit"><span>4.3</span>Captación y uso de imágenes y/o vídeos del menor</div>
+      <input type="radio" name="a3" id="a3s"><input type="radio" name="a3" id="a3n">
+      <div class="aut-opts">
+        <label for="a3s"><span class="ico">✓</span>AUTORIZO</label>
+        <label for="a3n"><span class="ico">✕</span>NO AUTORIZO</label>
+      </div>
+      <div class="aut-extra">
+        <p style="font-size:13px;font-weight:700;color:var(--azul);margin-bottom:9px;">Soportes autorizados:</p>
+        <div class="sop">
+          <input type="checkbox" id="s1"><label for="s1"><span class="caja">✓</span>Página web</label>
+          <input type="checkbox" id="s2"><label for="s2"><span class="caja">✓</span>Redes sociales</label>
+          <input type="checkbox" id="s3"><label for="s3"><span class="caja">✓</span>Dossieres / folletos</label>
+          <input type="checkbox" id="s4"><label for="s4"><span class="caja">✓</span>Medios de comunicación</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="parte">PARTE II — Compromisos, normas y consecuencias</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">5</span><h2>Declaraciones esenciales de la familia</h2></div>
+  <div class="sec-body">
+    <div class="dec">
+      <div class="dec-preg">¿El menor tiene diagnóstico previo o sospecha diagnóstica relevante?</div>
+      <input type="radio" name="d1" id="d1s"><input type="radio" name="d1" id="d1n">
+      <div class="dec-opts">
+        <label for="d1s">✓ SÍ</label>
+        <label for="d1n">✕ NO</label>
+      </div>
+    </div>
+    <div class="dec">
+      <div class="dec-preg">¿Dispone de informes diagnósticos, evaluaciones previas o documentación clínica relevante?</div>
+      <input type="radio" name="d2" id="d2s"><input type="radio" name="d2" id="d2n">
+      <div class="dec-opts">
+        <label for="d2s">✓ SÍ</label>
+        <label for="d2n">✕ NO</label>
+      </div>
+    </div>
+    <div class="campo" style="margin-top:14px;"><label>Centro o profesional de procedencia (si existe)</label><input type="text" placeholder="Nombre del centro o profesional"></div>
+    <div class="campo"><label>Documentación que se entrega ahora</label><textarea placeholder="Describa los documentos que entrega..." rows="2"></textarea></div>
+    <div class="campo"><label>Documentación pendiente de entregar</label><textarea placeholder="Describa lo que queda pendiente..." rows="2"></textarea></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">6</span><h2>Compromiso documental obligatorio</h2></div>
+  <div class="sec-body">
+    <ul class="l">
+      <li>Si el menor tiene diagnóstico previo, la familia entregará los informes en un plazo máximo de tres meses.</li>
+      <li>Si no hay documentación, la familia se compromete a completar una valoración diagnóstica en el mismo plazo.</li>
+      <li>La familia comunicará cambios de medicación, diagnósticos, tratamientos o incidencias médicas relevantes.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">7</span><h2>Consecuencias del incumplimiento</h2></div>
+  <div class="sec-body">
+    <ul class="l">
+      <li>Sin información suficiente, la formulación clínica tendrá carácter provisional.</li>
+      <li>El centro podrá limitar la emisión de informes hasta disponer de documentación mínima.</li>
+      <li>La ausencia grave de documentación podrá derivar en suspensión de prestaciones o resolución con preaviso escrito.</li>
+      <li>El trato irrespetuoso al personal podrá dar lugar a medidas organizativas o resolución contractual.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">8</span><h2>Normas mínimas de funcionamiento</h2></div>
+  <div class="sec-body">
+    <ul class="l">
+      <li>Aportar información veraz, completa y actualizada.</li>
+      <li>Respetar horarios, normas internas y canales de comunicación del centro.</li>
+      <li>No utilizar WhatsApp para urgencias ni para remitir información excesiva.</li>
+      <li>No grabar ni difundir imágenes, audio o sesiones sin autorización expresa.</li>
+      <li>Mantener un trato correcto y respetuoso con el equipo profesional y otras familias.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="parte">Datos del menor y firma</div>
+
+<div class="sec">
+  <div class="sec-head"><span class="num">9</span><h2>Datos para cumplimentación y firma</h2></div>
+  <div class="sec-body">
+    <div class="campo"><label>Nombre y apellidos del menor *</label><input type="text" id="menor" placeholder="Nombre completo del menor"></div>
+    <div class="tutor">
+      <h3>Representante legal 1</h3>
+      <div class="col2">
+        <div class="campo"><label>Nombre y apellidos *</label><input type="text" id="r1" placeholder="Nombre completo"></div>
+        <div class="campo"><label>DNI / NIE / Pasaporte</label><input type="text" placeholder="00000000X"></div>
+      </div>
+    </div>
+    <div class="tutor">
+      <h3>Representante legal 2 (si procede)</h3>
+      <div class="col2">
+        <div class="campo"><label>Nombre y apellidos</label><input type="text" placeholder="Nombre completo"></div>
+        <div class="campo"><label>DNI / NIE / Pasaporte</label><input type="text" placeholder="00000000X"></div>
+      </div>
+    </div>
+    <div class="campo"><label>Centro educativo actual del menor</label><input type="text" placeholder="Nombre del colegio o instituto"></div>
+    <div class="campo"><label>Curso / etapa y persona de contacto (opcional)</label><input type="text" placeholder="Ej: 3.º Primaria — Tutora: Carmen García"></div>
+    <div class="col2">
+      <div class="campo"><label>Fecha de inicio</label><input type="date"></div>
+      <div class="campo"><label>Lugar y fecha de firma</label><input type="text" placeholder="Ciudad, DD/MM/AAAA"></div>
+    </div>
+
+    <!-- FIRMA 1 -->
+    <div class="firma">
+      <div class="firma-head">✍️ Firma — Representante legal 1</div>
+
+      <div id="f1d" class="fpanel">
+        <svg class="fc" id="c1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 130" preserveAspectRatio="none"></svg>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px;">
+          <span class="firma-hint">Dibuje su firma con el dedo o el ratón</span>
+          <button type="button" class="btn-borrar" onclick="borrar('c1')">Borrar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FIRMA 2 -->
+    <div class="firma">
+      <div class="firma-head">✍️ Firma — Representante legal 2 (si procede)</div>
+
+      <div id="f2d" class="fpanel">
+        <svg class="fc" id="c2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 130" preserveAspectRatio="none"></svg>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px;">
+          <span class="firma-hint">Dibuje su firma con el dedo o el ratón</span>
+          <button type="button" class="btn-borrar" onclick="borrar('c2')">Borrar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FIRMA MENOR -->
+    <div class="firma">
+      <div class="firma-head">✍️ Firma — Menor con 14 o más años (si procede)</div>
+
+      <div id="f3d" class="fpanel">
+        <svg class="fc" id="c3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 130" preserveAspectRatio="none"></svg>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px;">
+          <span class="firma-hint">Dibuje su firma con el dedo o el ratón</span>
+          <button type="button" class="btn-borrar" onclick="borrar('c3')">Borrar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="legal">La firma del presente pack acredita que la familia ha leído, comprendido y acepta el contenido íntegro del documento, incluidas las autorizaciones marcadas y los compromisos documentales asumidos.</div>
+  </div>
+</div>
+</div><!-- /wrap -->
+
+<div class="barra">
+  <button type="button" class="btn-env" onclick="abrirModal()">Guardar y enviar al centro →</button>
+</div>
+
+<div class="overlay" id="modal" onclick="if(event.target===this)cerrar()">
+  <div class="modal">
+    <div class="mdrag"></div>
+    <div class="mok">✓</div>
+    <h3>Formulario completado</h3>
+    <p>Guarda el PDF y envíalo por WhatsApp al centro:</p>
+    <div class="mbtns">
+      <button type="button" class="mbtn mb-pdf" onclick="pdfYluego()">📄 Paso 1 — Guardar como PDF</button>
+      <button type="button" class="mbtn mb-share" id="btn-wa" style="opacity:.4;pointer-events:none;">💬 Paso 2 — Enviar PDF por WhatsApp</button>
+      <button type="button" class="mbtn mb-close" onclick="cerrar()">Volver al formulario</button>
+    </div>
+    <p id="wa-hint" style="font-size:12px;color:#5a6a7a;text-align:center;margin-top:10px;display:none;">Una vez guardado el PDF, toca el botón de WhatsApp para enviarlo.</p>
+  </div>
+</div>
+
+<script>
+// ── FIRMA SVG ────────────────────────────────────────────────
+// Guarda los trazos como <polyline> dentro del SVG inline.
+// Al imprimir el SVG ya está en el DOM → no necesita toDataURL.
+
+function svgPt(svg, clientX, clientY) {
+  var b = svg.getBoundingClientRect();
+  // Convertir coordenadas pantalla → coordenadas viewBox (400×130)
+  var vbW = 400, vbH = 130;
+  var x = ((clientX - b.left) / b.width  * vbW).toFixed(2);
+  var y = ((clientY - b.top)  / b.height * vbH).toFixed(2);
+  return x + ',' + y;
+}
+
+function initCanvas(id) {
+  var svg = document.getElementById(id);
+  if (!svg || svg.tagName.toLowerCase() !== 'svg') return;
+  if (svg._init) return; // ya iniciado
+  svg._init = true;
+  svg._drawing = false;
+  svg._poly = null;
+
+  function startStroke(x, y) {
+    svg._drawing = true;
+    svg._poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    svg._poly.setAttribute('stroke', '#1a3a5c');
+    svg._poly.setAttribute('stroke-width', '2.5');
+    svg._poly.setAttribute('stroke-linecap', 'round');
+    svg._poly.setAttribute('stroke-linejoin', 'round');
+    svg._poly.setAttribute('fill', 'none');
+    svg._poly.setAttribute('points', svgPt(svg, x, y));
+    svg.appendChild(svg._poly);
+  }
+  function addPoint(x, y) {
+    if (!svg._drawing || !svg._poly) return;
+    svg._poly.setAttribute('points', svg._poly.getAttribute('points') + ' ' + svgPt(svg, x, y));
+  }
+  function endStroke() { svg._drawing = false; svg._poly = null; }
+
+  // Mouse
+  svg.addEventListener('mousedown',  function(e) { e.preventDefault(); startStroke(e.clientX, e.clientY); });
+  svg.addEventListener('mousemove',  function(e) { if (svg._drawing) addPoint(e.clientX, e.clientY); });
+  svg.addEventListener('mouseup',    endStroke);
+  svg.addEventListener('mouseleave', endStroke);
+
+  // Touch (móvil)
+  svg.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    startStroke(t.clientX, t.clientY);
+  }, { passive: false });
+  svg.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    addPoint(t.clientX, t.clientY);
+  }, { passive: false });
+  svg.addEventListener('touchend',   endStroke, { passive: false });
+  svg.addEventListener('touchcancel',endStroke, { passive: false });
+}
+
+function borrar(id) {
+  var svg = document.getElementById(id);
+  if (!svg) return;
+  // Eliminar todas las polylines
+  var pols = svg.querySelectorAll('polyline');
+  pols.forEach(function(p) { p.parentNode.removeChild(p); });
+}
+
+function initAll() {
+  initCanvas('c1');
+  initCanvas('c2');
+  initCanvas('c3');
+}
+document.addEventListener('DOMContentLoaded', function() { setTimeout(initAll, 100); });
+window.addEventListener('load', initAll);
+
+// Tabs firma
+function tab(btn, mostrar, ocultar) {
+  var bloque = btn.parentNode;
+  var tabs = bloque.querySelectorAll('.ftab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('activo');
+  btn.classList.add('activo');
+  document.getElementById(mostrar).style.display = 'block';
+  document.getElementById(ocultar).style.display = 'none';
+  var svgEl = document.getElementById(mostrar).querySelector('svg.fc');
+  if (svgEl) setTimeout(function() { initCanvas(svgEl.id); }, 100);
+}
+
+// Foto firma
+function verFoto(input, pvId, imgId, areaId) {
+  var f = input.files[0];
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(e) {
+    document.getElementById(imgId).src = e.target.result;
+    document.getElementById(pvId).style.display = 'block';
+    document.getElementById(areaId).style.display = 'none';
+  };
+  r.readAsDataURL(f);
+}
+function qFoto(pvId, areaId, imgId) {
+  document.getElementById(imgId).src = '';
+  document.getElementById(pvId).style.display = 'none';
+  document.getElementById(areaId).style.display = 'block';
+}
+
+// Modal - abre siempre sin validacion
+function abrirModal() {
+  document.getElementById('modal').classList.add('vis');
+}
+function cerrar() {
+  document.getElementById('modal').classList.remove('vis');
+}
+function pdf() {
+  cerrar();
+  setTimeout(function() { window.print(); }, 400);
+}
+function pdfYluego() {
+  cerrar();
+  setTimeout(function() {
+    window.print();
+    // Activar boton WhatsApp
+    setTimeout(function() {
+      var btn = document.getElementById('btn-wa');
+      var hint = document.getElementById('wa-hint');
+      if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; btn.onclick = enviarWhatsApp; }
+      if (hint) hint.style.display = 'block';
+    }, 1000);
+  }, 400);
+}
+
+function enviarWhatsApp() {
+  cerrar();
+  var nom = (document.getElementById('menor').value || '').trim();
+  var r1 = (document.getElementById('r1').value || '').trim();
+  var msg = 'Hola, os envio el Pack de Consentimiento cumplimentado y firmado.';
+  if (nom) msg += '\n\nMenor: ' + nom;
+  if (r1) msg += '\nRepresentante: ' + r1;
+  msg += '\n\nAdjunto el PDF guardado desde el formulario.';
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var modal = document.getElementById('modal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) cerrar();
+    });
+  }
+});
+</script>
+</body>
+</html>
